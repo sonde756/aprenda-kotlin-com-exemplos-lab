@@ -2,7 +2,22 @@
 
 enum class Nivel { BASICO, INTERMEDIARIO, DIFICIL }
 
-class Usuario
+class Usuario(var nome: String, var email: String) {
+    var nivel = Nivel.BASICO
+    var formacoes = mutableListOf<Formacao>()
+
+    fun adicionarFormacao(formacao: Formacao) {
+        formacoes.add(formacao)
+    }
+
+    fun exibirFormacoes() {
+        formacoes.forEach { println(it.nome) }
+    }
+
+    fun matricular(formacao: Formacao) {
+        formacao.matricular(this)
+    }
+}
 
 data class ConteudoEducacional(var nome: String, val duracao: Int = 60)
 
@@ -16,6 +31,10 @@ data class Formacao(val nome: String, var conteudos: List<ConteudoEducacional>) 
 }
 
 fun main() {
-    TODO("Analise as classes modeladas para este domínio de aplicação e pense em formas de evoluí-las.")
-    TODO("Simule alguns cenários de teste. Para isso, crie alguns objetos usando as classes em questão.")
+    val usuario = Usuario("Edson", "edsonrafael756@gmail.com")
+    usuario.nivel = Nivel.INTERMEDIARIO
+    usuario.adicionarFormacao(Formacao("Kotlin", listOf(ConteudoEducacional("Introdução ao Kotlin"), ConteudoEducacional("Classes e Objetos"))))
+
+
+    usuario.exibirFormacoes()
 }
